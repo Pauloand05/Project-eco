@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eco</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #1c5739;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 98%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #1c5739;
+            color: #fff;
+            z-index: 1000;
+        }
+
+        .navbar .top-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .navbar .left, .navbar .center, .navbar .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .left .home-icon {
+            font-size: 36px;
+            margin-right: 20px;
+        }
+
+        .navbar .center a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 24px;
+        }
+
+        .navbar .center a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar .right {
+            align-items: center;
+        }
+
+        .navbar .right input[type="text"] {
+            padding: 7px;
+            border: #184b31f6;
+            border-radius: 30px;
+            margin-right: -10px;
+        }
+
+        .navbar .right button {
+            padding: 7px 10px;
+            border: #f4f4f4;
+            border-radius: 50px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .navbar .right .search-btn {
+            background-color: #032b05;
+            margin-right: 15px;
+        }
+
+        .navbar .right .search-btn:hover {
+            background-color: #278355;
+        }
+
+        .navbar .right .register-btn {
+            background-color: #032b05;
+        }
+
+        .navbar .right .register-btn:hover {
+            background-color: #278355;
+        }
+
+        .navbar .bottom-bar {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .navbar .bottom-bar p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .about-section, .goals-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .about-section {
+            background-color: #1c5739; 
+        }
+
+        .about-section h2, .goals-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .about-section p, .goals-section p {
+            font-size: 18px; 
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 800px;
+            color: #ffffff;
+        }
+
+        .about-section .register-link {
+            display: block;
+            margin-top: 20px;
+            color: #1c5739;
+            text-decoration: none;
+        }
+
+        .about-section .register-link:hover {
+            text-decoration: underline;
+        }
+
+        .goals-section {
+            background-color: #1c5739; 
+        }
+
+        .goals-section ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .goals-section ul li {
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fafafa;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal form input[type="text"],
+        .modal form input[type="password"],
+        .modal form input[type="email"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal form button {
+            padding: 10px;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .modal form button:hover {
+            background-color: #36b985;
+        }
+
+        .modal .switch {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .modal .switch a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .modal .switch a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+    padding: 40px 20px;
+    color: #ffffff !important;
+    background-color: #1c5739;
+    text-align: center;
+}
+
+    .section h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #ffffff !important;
+        border-bottom: 1px solid #ddd; 
+    }
+
+    .section p {
+        font-size: 18px; /* Tamanho de fonte padronizado para parágrafos */
+        line-height: 1.6; /* Espaçamento entre linhas */
+        margin: 0 auto; /* Centraliza o texto */
+        max-width: 800px; /* Largura máxima para melhorar a legibilidade */
+    }
+
+    .section ul {
+    margin: 0 auto; /* Centraliza a lista dentro da seção */
+}
+
+.section ul li {
+    margin: 10px auto; /* Centraliza os itens da lista */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+    max-width: 600px; /* Largura máxima dos itens da lista */
+}
+
+    /* Estilo específico para a tabela de horários */
+    .tabela-horarios-section table {
+        width: 100%; /* Largura total da tabela */
+        border-collapse: collapse; /* Remove espaços entre bordas da tabela */
+    }
+
+    .tabela-horarios-section th, .tabela-horarios-section td {
+        padding: 10px; /* Espaçamento interno das células */
+        border: 1px solid #ddd; /* Borda das células */
+        text-align: center; /* Alinha o texto ao centro */
+    }
+
+    .tabela-horarios-section th {
+        background-color: #032b05; 
+        color: #ffffff !important; 
+    }
+
+    /* Estilo específico para o formulário de denúncias */
+    .denuncia-section form {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        margin: 0 auto; /* Centraliza o formulário */
+    }
+
+    .denuncia-section form .form-control {
+        margin-bottom: 15px; /* Espaçamento entre campos do formulário */
+    }
+
+    .denuncia-section form button {
+        background-color: #f39c12; 
+        color: #ffffff !important;
+        border: none; 
+        padding: 10px;
+        border-radius: 4px; /* Bordas arredondadas do botão */
+        cursor: pointer; /* Mostra cursor de ponteiro ao passar sobre o botão */
+    }
+
+    .denuncia-section form button:hover {
+        background-color: #36b985; /* Cor de fundo do botão ao passar o mouse */
+    }
+        footer {
+        background-color: #1c5739; /* Cor de fundo igual ao cabeçalho */
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin-top: 0px;
+    }
+
+    .rodape-div {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin: auto;
+        align-items: stretch;
+        padding: 0px 10px 0px 10px;
+    }
+
+    .rodape-div-1, .rodape-div-2, .rodape-div-3, .rodape-div-4 {
+        display: flex;
+        width: calc(100% / 4 - 20px);
+        padding: 0px;
+    }
+
+    .rodape-div-1-coluna,
+    .rodape-div-2-coluna,
+    .rodape-div-3-coluna,
+    .rodape-div-4-coluna {
+        flex: 1;
+    }
+
+    .rodape-div-1 span,
+    .rodape-div-2 span,
+    .rodape-div-3 span,
+    .rodape-div-4 span {
+        font-size: 20px;
+        color: white;
+    }
+
+    .rodape-div-2 p a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 32px;
+    }
+
+    .rodape-div-2 p a:hover {
+        opacity: 0.8;
+    }
+
+    .rodape-direitos {
+        width: calc(100% - 20px);
+        background-color: black;
+        padding: 10px;
+        margin: 0px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+        .carousel-item img {
+            object-fit: cover;
+            height: 400px;
+        }
+
+        .games-section {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #1c5739;
+            color: #ffffff;
+        }
+
+        .games-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .games-section .games-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .games-section .games-list li {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            background-color: #fafafa;
+            color: #333;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .games-section .games-list li:hover {
+            background-color: #e0e0e0;
+        }
+
+        .games-section .games-list .game-icon {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .games-section .games-list a {
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .games-section .games-list a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="top-bar">
+            <div class="left">
+                <i class="fas fa-home home-icon" aria-label="Home"></i>
+            </div>
+            <div class="center">
+                <a href="#home">Home</a>
+                <a href="#about">Sobre</a>
+                <a href="#games">Jogos</a>
+                <a href="#publicacoes">Publicacoes</a>
+                <a href="#contact">Contato</a>
+            </div>
+            <div class="right">
+                <input type="text" placeholder="Buscar..." aria-label="Buscar">
+                <button class="search-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
+                <button id="registerBtn" class="register-btn">Registro</button>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <p>Rumo a uma cidade mais limpa e segura. Faça já seu registro e agende um atendimento pelo app.</p>
+        </div>
+    </header>
+
+    <div id="templates" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#templates" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#templates" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#templates" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Imagem 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><a href="#horarios" style="color: white; text-decoration: none;">Tabela de Horário</a></h5>
+                    <p>Lista dos horários de funcionamento de coleta.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Imagem 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><a href="#publico" style="color: white; text-decoration: none;">Publicações</a></h5>
+                    <p>Informações dos serviços ou eventos oferecidos.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Imagem 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><a href="#denuncia" style="color: white; text-decoration: none;">Faça sua Denúncia</a></h5>
+                    <p>Relate problemas de saneamento em seu bairro ou onde estiver.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#templates" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#templates" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próximo</span>
+        </button>
+    </div>
+    
+    <br><br>
+    <section id="about" class="about-section">
+        <h2>Sobre Nós</h2>
+        <p>Somos uma empresa dedicada à melhoria da qualidade de vida urbana, oferecendo soluções sustentáveis e eficientes para uma cidade mais limpa e segura.</p>
+    </section>
+
+    <section id="goals" class="goals-section">
+        <h2>Nossos Objetivos</h2>
+        <ul>
+            <li>Reduzir o impacto ambiental através de práticas sustentáveis.</li>
+            <li>Oferecer serviços de alta qualidade e confiabilidade.</li>
+            <li>Promover a conscientização e a educação ambiental.</li>
+        </ul>
+    </section>
+
+    <br><br><br><br><br><br>
+
+    <section id="publico" class="publico-section" style="color: #ffffff !important; background-color: #1c5739; text-align: center;">
+        <h2>Nosso Público</h2>
+        <p>Nossos serviços e eventos são destinados a:</p>
+        <ul>
+            <li><strong>Moradores Locais:</strong> Pessoas que residem na área e utilizam nossos serviços regularmente.</li>
+            <li><strong>Empresas Locais:</strong> Negócios que podem se beneficiar de parcerias e serviços comunitários.</li>
+            <li><strong>Visitantes:</strong> Pessoas que estão de passagem e querem se envolver com nossas iniciativas.</li>
+        </ul>
+        <p>Se você faz parte de um desses grupos e deseja saber mais sobre como podemos ajudar, entre em contato conosco!</p>
+    </section>
+
+    <br><br><br><br><br><br>
+
+    <section id="horarios" class="tabela-horarios-section" style="color: #ffffff !important; background-color: #1c5739;">
+        <h2 style="text-align: center;">Horários de Funcionamento</h2>
+        <p style="text-align: center;">Abaixo estão os horários de funcionamento dos serviços:</p>
+ 
+            <div style="text-align: center; margin-bottom: 20px;">
+                <label for="bairro" style="color: #fff; font-size: 18px;">Selecione o Bairro:</label>
+                <select id="bairro" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">Selecione</option>
+                    <option value="Centro">Centro</option>
+                    <option value="São Francisco">São Francisco</option>
+                    <option value="Turu">Turu</option>
+                    <option value="Cohama">Cohama</option>
+                    <option value="Ponta d Areia">Ponta d'Areia</option>
+                </select>
+            </div>
+    
+            <table id="horariosTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Serviço</th>
+                        <th>Segunda-feira</th>
+                        <th>Terça-feira</th>
+                        <th>Quarta-feira</th>
+                        <th>Quinta-feira</th>
+                        <th>Sexta-feira</th>
+                        <th>Sábado</th>
+                        <th>Domingo</th>
+                    </tr>
+                </thead>
+            <tbody>
+                <tr>
+                    <td>Horarios de Atendimento</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <br><br><br><br><br><br>
+
+    <section id="games" class="games-section">
+        <h2>Jogos Disponíveis</h2>
+        <ul class="games-list">
+            <li>
+                <i class="fas fa-gamepad game-icon"></i>
+                <a href="https://link-do-jogo-1.com" target="_blank">Jogo 1</a>
+            </li>
+            <li>
+                <i class="fas fa-gamepad game-icon"></i>
+                <a href="https://link-do-jogo-2.com" target="_blank">Jogo 2</a>
+            </li>
+            <li>
+                <i class="fas fa-gamepad game-icon"></i>
+                <a href="https://link-do-jogo-3.com" target="_blank">Jogo 3</a>
+            </li>
+            <li>
+                <i class="fas fa-gamepad game-icon"></i>
+                <a href="https://link-do-jogo-4.com" target="_blank">Jogo 4</a>
+            </li>
+        </ul>
+    </section>
+
+    <br><br><br><br><br><br>
+
+    <section id="denuncia" class="denuncia-section" style="color: #ffffff !important; background-color: #1c5739; text-align: center;">
+        <h2>Faça Sua Denúncia</h2>
+        <p>Se você identificar algum problema ou tiver uma preocupação a relatar, preencha o formulário abaixo. Sua denúncia é importante para nós e ajudará a melhorar nossos serviços.</p>
+        <form action="/submit-denuncia" method="post">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Seu Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Seu E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição da Denúncia</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger">Enviar Denúncia</button>
+        </form>
+    </section>
+    
+    <br><br><br><br><br>
+
+    <footer style="background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin-top: 50px;">
+    <div class="rodape-div" style="display: flex;
+    flex-wrap: wrap;
+    width:100%;
+    margin: auto;
+    align-items: stretch;
+    padding: 60px 10px 40px 10px;">
+    <div id="contact" class="rodape-div-1" style="display: flex;
+    width: calc(100% / 4 - 20px);
+    padding: 10px;">
+        <div class="rodape-div-1-coluna">
+            <span style="font-size: 20px;
+                color: white;"><b>ECO</b></span>
+    </div></div>
+    <div class="rodape-div-2" style="display: flex;
+    width: calc(100% / 4 - 20px);
+    padding: 10px;">
+     <div class="rodape-div-2-coluna">
+        <span style="font-size: 20px;color: white;">Redes Socais</span>
+        <p><i><a style="color: #fff;
+            text-decoration: none;" href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a style="color: #fff;
+            text-decoration: none;" href="https://www.twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a style="color: #fff;
+            text-decoration: none;" href="https://www.instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </i></p></div></div>
+    <div class="rodape-div-3" style="display: flex;
+        width: calc(100% / 4 - 20px);
+        padding: 10px;">
+        <div class="rodape-div-3-coluna">           
+            <span style="font-size: 20px;
+            color: white;"><b></b></span>
+        </div>
+    </div>
+
+    <div class="rodape-div-4" style="display: flex;
+        width: calc(100% / 4 - 20px);
+        padding: 10px;">
+        <div class="rodape-div-4-coluna">         
+          <span style="font-size: 20px;
+            color: white;"><b>Outros</b></span>
+          <p><a style="color: #fff;
+            text-decoration: none;" href="#termos">Termos de Serviços</a></p>
+          <p><a style="color: #fff;
+            text-decoration: none;" href="#privacidade"></a>Políticas de Privacidade</p>
+    </div></div>
+
+    <p class="rodape-direitos" style="width: calc(100% - 20px);
+    background-color: black;
+    padding: 10px;
+    margin: 0px;
+    text-align: center;">Copyright © 2023 – Todos os Direitos Reservados.</p>
+</div></footer>
+
+   <!-- Modal de Registro -->
+   <div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeRegisterModal">&times;</span>
+        <h2 style="color: black;">Registro</h2>
+        <form>
+            <input type="text" placeholder="Nome" required>
+            <input type="email" placeholder="E-mail" required>
+            <input type="password" placeholder="Senha" required>
+            <button type="submit">Registrar</button>
+        </form>
+        <div class="switch">
+            <p style="color: black;">Já tem uma conta? <a href="#" id="showLogin">Faça login</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Login -->
+<div id="loginModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" id="closeLoginModal">&times;</span>
+        <h2 style="color: black;">Login</h2>
+        <form>
+            <input type="email" placeholder="E-mail" required>
+            <input type="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="switch">
+            <p style="color: black;">Não tem uma conta? <a href="#" id="showRegister">Registre-se</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    //elementos dos modais
+    const registerModal = document.getElementById('registerModal');
+    const loginModal = document.getElementById('loginModal');
+
+    //botões para abrir os modais
+    const registerBtn = document.getElementById('registerBtn');
+
+    //botões para alternar entre modais
+    const showLogin = document.getElementById('showLogin');
+    const showRegister = document.getElementById('showRegister');
+
+    //botões para fechar os modais
+    const closeRegisterModal = document.getElementById('closeRegisterModal');
+    const closeLoginModal = document.getElementById('closeLoginModal');
+
+    // Função para abrir o modal de registro
+    function openRegisterModal() {
+        registerModal.style.display = 'block';
+        loginModal.style.display = 'none';
+    }
+
+    // Função para abrir o modal de login
+    function openLoginModal() {
+        loginModal.style.display = 'block';
+        registerModal.style.display = 'none';
+    }
+
+    registerBtn.addEventListener('click', openRegisterModal);
+
+    showLogin.addEventListener('click', () => {
+        registerModal.style.display = 'none';
+        loginModal.style.display = 'block';
+    });
+
+    showRegister.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+        registerModal.style.display = 'block';
+    });
+
+    closeRegisterModal.addEventListener('click', () => {
+        registerModal.style.display = 'none';
+    });
+
+    closeLoginModal.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
+
+    // Fechar o modal se o usuário clicar fora dele
+    window.addEventListener('click', (event) => {
+        if (event.target === registerModal) {
+            registerModal.style.display = 'none';
+        }
+        if (event.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+    });
+
+
+    document.getElementById('bairro').addEventListener('change', function() {
+            const bairro = this.value;
+            const tableBody = document.querySelector('#horariosTable tbody');
+            
+            // Limpar a tabela existente
+            tableBody.innerHTML = '';
+
+            const horarios = {
+                "Centro": [
+                    ["Horarios de Atendimento", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "Fechado", "Fechado"]
+                ],
+                "São Francisco": [
+                    ["Horarios de Atendimento", "10:00 - 18:00", "10:00 - 18:00", "10:00 - 18:00", "10:00 - 18:00", "10:00 - 18:00", "Fechado", "Fechado"]
+                ],
+                "Turu": [
+                    ["Horarios de Atendimento", "8:00 - 16:00", "8:00 - 16:00", "8:00 - 16:00", "8:00 - 16:00", "8:00 - 16:00", "Fechado", "Fechado"]
+                ],
+                "Cohama": [
+                    ["Horarios de Atendimento", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "Fechado", "Fechado"]
+                ],
+                "Ponta d Areia": [
+                    ["Horarios de Atendimento", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "9:00 - 17:00", "Fechado", "Fechado"]
+                ]
+            };
+
+            if (horarios[bairro]) {
+                horarios[bairro].forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.textContent = cell;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            } else {
+                // Caso nenhum bairro esteja selecionado
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.colSpan = 8;
+                td.textContent = 'Selecione um bairro para ver os horários.';
+                tr.appendChild(td);
+                tableBody.appendChild(tr);
+            }
+        });
+</script>
+</body>
+</html>
